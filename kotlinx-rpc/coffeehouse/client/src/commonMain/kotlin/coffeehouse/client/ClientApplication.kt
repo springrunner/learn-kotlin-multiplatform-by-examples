@@ -1,37 +1,48 @@
 package coffeehouse.client
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import coffeehouse.Greeting
-import coffeehouse.client.generated.resources.Res
-import coffeehouse.client.generated.resources.compose_multiplatform
-import org.jetbrains.compose.resources.painterResource
+import coffeehouse.client.support.ApplicationEvent
+import coffeehouse.client.support.ApplicationEventBus
+import coffeehouse.client.support.registerListener
+import coffeehouse.client.ui.order.OrderPage
+import coffeehouse.client.ui.shared.BlockingOverlayHost
+import coffeehouse.client.ui.shared.BlockingOverlayState
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+/**
+ * Root composable for the client application.
+ */
 @Preview
 @Composable
 fun ClientApplication() {
+    val blockingOverlayState = remember { BlockingOverlayState() }
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    var appBarTitle by remember { mutableStateOf(value = "Coffeehouse") }
+    ApplicationEventBus.registerListener<ApplicationEvent.PageLaunched> { event ->
+        appBarTitle = event.pageName
+    }
+
     MaterialTheme {
-        var showContent by remember { mutableStateOf(false) }
-        Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-            Button(onClick = { showContent = !showContent }) {
-                Text("Click me!")
-            }
-            AnimatedVisibility(showContent) {
-                val greeting = remember { Greeting().greet() }
-                Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-                    Image(painterResource(Res.drawable.compose_multiplatform), null)
-                    Text("Compose: $greeting")
+        Scaffold(
+            topBar = {
+                @OptIn(ExperimentalMaterial3Api::class)
+                TopAppBar(
+                    title = { Text(text = appBarTitle) },
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        titleContentColor = MaterialTheme.colorScheme.onPrimary
+                    )
+                )
+            },
+            snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
+            content = { innerPadding ->
+                // BlockingOverlayHost wraps the OrderPage to show overlay when needed.
+                BlockingOverlayHost(blockingOverlayState = blockingOverlayState) {
+                    OrderPage(blockingOverlayState, snackbarHostState, innerPadding)
                 }
             }
-        }
+        )
     }
 }
