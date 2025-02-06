@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package coffeehouse.contract.order;
+
+service OrderService {
+  rpc PlaceOrder (PlaceOrderRequest) returns (PlaceOrderResponse);
+}
+
+message PlaceOrderRequest {
+  string customer_id = 1;
+  repeated OrderLine order_lines = 2;
+}
+
+message PlaceOrderResponse {
+  string order_id = 1;
+}
+
+message OrderLine {
+  string product_code = 1;
+  int32 quantity = 2;
+}

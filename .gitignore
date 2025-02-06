@@ -1,0 +1,46 @@
+### system ###
+.DS_Store
+
+### tools ###
+.gradle
+.kotlin
+build/
+
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+
+.vscode/
+.settings
+.project
+.classpath
+
+xcuserdata/
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+timeline.xctimeline
+playground.xcworkspace
+.build/
+Carthage/Build/
+Dependencies/
+.accio/
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output
+iOSInjectionProject/
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
+!*.xcodeproj/project.xcworkspace/
+!*.xcworkspace/contents.xcworkspacedata
+/*.gcno
+**/xcshareddata/WorkspaceSettings.xcsettings
+
+### projects ###
+update_timestamps.sh
+
