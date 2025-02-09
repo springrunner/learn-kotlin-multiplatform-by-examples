@@ -45,6 +45,12 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
+
+            implementation(libs.kotlinx.rpc.krpc.serialization.json)
+            implementation(libs.kotlinx.rpc.krpc.ktor.client)
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.websockets)
+            implementation(libs.ktor.client.cio)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)

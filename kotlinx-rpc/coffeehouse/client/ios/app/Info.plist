@@ -46,5 +46,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>krpc.host</key>
+    <string>127.0.0.1</string>
 </dict>
 </plist>

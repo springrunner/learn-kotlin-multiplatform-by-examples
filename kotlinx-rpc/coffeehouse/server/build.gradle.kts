@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.kotlinJvm)
     alias(libs.plugins.ktor)
-    
+
     application
 }
 
@@ -10,9 +10,12 @@ dependencies {
 
     implementation(libs.ktor.server.core)
     implementation(libs.ktor.server.netty)
+    implementation(libs.ktor.server.cors.jvm)
+    implementation(libs.ktor.server.websockets.jvm)
+    implementation(libs.ktor.server.host.common.jvm)
+    implementation(libs.kotlinx.rpc.krpc.ktor.server)
     implementation(libs.logback)
 
-    testImplementation(libs.ktor.server.tests)
     testImplementation(libs.kotlin.test.junit)
 }
 
