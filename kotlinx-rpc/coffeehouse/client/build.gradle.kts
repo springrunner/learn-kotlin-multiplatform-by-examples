@@ -52,6 +52,9 @@ kotlin {
             implementation(libs.ktor.client.websockets)
             implementation(libs.ktor.client.cio)
         }
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
+        }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutines.swing)

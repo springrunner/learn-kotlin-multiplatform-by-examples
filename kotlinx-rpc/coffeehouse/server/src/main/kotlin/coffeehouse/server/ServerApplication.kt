@@ -4,6 +4,8 @@ import coffeehouse.SERVER_HOST
 import coffeehouse.SERVER_PORT
 import coffeehouse.modules.order.domain.service.OrderPlacement
 import coffeehouse.modules.order.domain.service.support.NoOpOrderPlacementProcessor
+import coffeehouse.modules.weather.domain.service.WeatherService
+import coffeehouse.modules.weather.domain.service.support.RandomWeatherService
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
@@ -23,6 +25,14 @@ fun main() {
                 }
                 registerService<OrderPlacement> { ctx ->
                     NoOpOrderPlacementProcessor(ctx)
+                }
+            }
+            rpc("/weather") {
+                rpcConfig {
+                    serialization { json(Json) }
+                }
+                registerService<WeatherService> { ctx ->
+                    RandomWeatherService(ctx)
                 }
             }
         }
